@@ -88,3 +88,58 @@ def build_validation_result(is_valid, violated_slot, message_content):
             'content': message_content
         }
     }
+
+
+def isvalid_qtype(qtype):
+    qtype = ['liability insurance', 'collision coverage',
+             'comprehensive coverage', 'personal injury protection',
+             'underinsured motorist protection']
+    return qtype.lower() in car_type
+
+
+def isvalid_add(street, city):
+    auth_id = "14324411-3afb-6b5f-8ba0-79b4c7a26694"
+    auth_token = "rkJ6XCrMNo5JbuVAkmqp"
+
+    credentials = StaticCredentials(auth_id, auth_token)
+
+    client = ClientBuilder(credentials).build_us_street_api_client()
+
+    lookup = Lookup()
+    lookup.street = street
+    look.city = city
+    lookup.state = "MD"
+
+    try:
+        client.send_lookup(lookup)
+    except exceptions.SmartyException as err:
+        print(err)
+        return
+
+    result = lookup.result
+
+    if not result:
+        print("No candidates. This means the address is not valid.")
+        return False
+
+    first_candidate = result[0]
+
+    print("Address is valid. (There is at least one candidate)\n")
+    print("ZIP Code: " + first_candidate.components.zipcode)
+    print("County: " + first_candidate.metadata.county_name)
+    print("Latitude: {}".format(first_candidate.metadata.latitude))
+    print("Longitude: {}".format(first_candidate.metadata.longitude))
+    qwe = first_candidate.components.zipcode
+
+    if qwe is not None:
+        return True
+    else:
+        return False
+
+
+def build_validation_result(isvalid, violated_slot, message_content):
+    return {
+        'isValid': isvalid,
+        'violatedSlot': violated_slot,
+        'message': {'contentType': 'PlainText', 'content': message_content}
+    }
