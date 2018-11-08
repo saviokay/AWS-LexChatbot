@@ -143,3 +143,14 @@ def build_validation_result(isvalid, violated_slot, message_content):
         'violatedSlot': violated_slot,
         'message': {'contentType': 'PlainText', 'content': message_content}
     }
+
+
+def validate_values(qtype, caddress, cname, clast, city):
+    if qtype and not isvalid_qtype(qtype):
+        return build_validation_result(False, 'QType', 'I did not recognize that, can you please provide me with a valid insurance type?')
+
+        if caddress and city:
+            if isvalid_add('caddress', 'city') is False:
+                return build_validation_result(False, 'CAddress', 'This is an invalid Address, Kindly input correct Address')
+
+        return build_validation_result(True, None, None)
