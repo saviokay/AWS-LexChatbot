@@ -205,8 +205,6 @@ def validate_quote(slots):
             False,
             '​QType',
             'We currently do not support {} as a valid insurance type.  Can you try a different type?'.format(qtype))
-    else:
-        return {'isValid': True}
 
 
 def greetings(intent_request):
@@ -229,5 +227,5 @@ def greetings(intent_request):
     logger.info(cname)
     logger.info("Slots is :")
     logger.info(slots)
-    # return elicit_slot(session_attributes, intent, slots, cname, {'contentType': 'PlainText', 'content': 'What is your age?'})
+
     return delegate(session_attributes, intent_request['currentIntent']['slots'])
