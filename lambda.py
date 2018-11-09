@@ -207,3 +207,27 @@ def validate_quote(slots):
             'We currently do not support {} as a valid insurance type.  Can you try a different type?'.format(qtype))
     else:
         return {'isValid': True}
+
+
+def greetings(intent_request):
+    cname = try_ex(lambda: intent_request['currentIntent']['slots']['CName'].title())
+    intent = intent_request['currentIntent']['name']
+    slots = intent_request['currentIntent']['slots']
+    session_attributes = intent_request['sessionAttributes'] if intent_request['sessionAttributes'] is not None else {
+    }
+
+    reservation = json.dumps({
+        'CName': cname,
+    })
+
+    session_attributes['currentReservation'] = reservation
+
+    logger.info("Hey Thisis is a test")
+    logger.info("Intent Name : ")
+    logger.info(intent)
+    logger.info("Name :  ")
+    logger.info(cname)
+    logger.info("Slots is :")
+    logger.info(slots)
+    # return elicit_slot(session_attributes, intent, slots, cname, {'contentType': 'PlainText', 'content': 'What is your age?'})
+    return delegate(session_attributes, intent_request['currentIntent']['slots'])
