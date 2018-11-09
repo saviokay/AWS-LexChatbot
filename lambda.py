@@ -154,3 +154,56 @@ def validate_values(qtype, caddress, cname, clast, city):
                 return build_validation_result(False, 'CAddress', 'This is an invalid Address, Kindly input correct Address')
 
         return build_validation_result(True, None, None)
+
+
+def validate_quote(slots):
+    caddres = intent_request['currentIntent']['slots']['CAddress']
+    cname = intent_request['currentIntent']['slots']['CName']
+    clast = intent_request['currentIntent']['slots']['​CLast']
+    qtype = intent_request['currentIntent']['slots']['​QType']
+    city = intent_request['currentIntent']['slots']['City']
+    source = intent_request['invocationSource']
+    output_session_attributes = intent_request['sessionAttributes'] if intent_request['sessionAttributes'] is not None else {
+    }
+
+    if source == 'DialogCodeHook':
+        # Perform basic validation on the supplied input slots.
+        slots = intent_request['currentIntent']['slots']
+        validation_result = validate_values(qtype, caddress, cname, clast, city)
+        if not validation_result['isValid']:
+            slots[validation_result['violatedSlot']] = None
+            return elicit_slot(
+                output_session_attributes,
+                intent_request['currentIntent']['name'],
+                slots,
+                validation_result['violatedSlot'],
+                validation_result['message'],
+                build_response_card(
+                    'Specify {}'.format(validation_result['violatedSlot']),
+                    validation_result['message']['content'],
+                    build_options(validation_result['violatedSlot'],
+                                  appointment_type, date, booking_map)
+                )
+            )
+
+        if not caddress:
+            return elicit_slot(
+                output_session_attributes,
+                intent_request['currentIntent']['name'],
+                intent_request['currentIntent']['slots'],
+                'CAddress',
+                {'contentType': 'PlainText',
+                    'content': 'Please specify a proper address for quotation evaluation'},
+                build_response_card(
+                    'Specify Address', 'Please specify a proper address for quotation evaluation',
+                    build_options('CAddress', caddress, date, None)
+                )
+            )
+
+    if qtype and not isvalid_quote_type(qtype):
+        return build_validation_result(
+            False,
+            '​QType',
+            'We currently do not support {} as a valid insurance type.  Can you try a different type?'.format(qtype))
+    else:
+        return {'isValid': True}
