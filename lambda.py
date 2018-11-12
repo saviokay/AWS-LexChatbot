@@ -229,3 +229,22 @@ def greetings(intent_request):
     logger.info(slots)
 
     return delegate(session_attributes, intent_request['currentIntent']['slots'])
+
+
+def dispatch(intent_request):
+    """
+    Called when the user specifies an intent for this bot.
+    """
+
+    logger.debug('dispatch userId={}, intentName={}'.format(
+        intent_request['userId'], intent_request['currentIntent']['name']))
+
+    intent_name = intent_request['currentIntent']['name']
+
+    # Dispatch to your bot's intent handlers
+    if intent_name == 'Greetings':
+        return greetings(intent_request)
+    elif intent_name == 'Info':
+        return get_quote(intent_request)
+
+    raise Exception('Intent with name ' + intent_name + ' not supported')
