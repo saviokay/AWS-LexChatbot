@@ -207,6 +207,41 @@ def validate_quote(slots):
             'We currently do not support {} as a valid insurance type.  Can you try a different type?'.format(qtype))
 
 
+def get_quote(intent_request):
+    caddres = try_ex(lambda: slots['​CAddress'])
+    cname = try_ex(lambda: slots['CName'])
+    clast = try_ex(lambda: slots['​CLast'])
+    qtype = try_ex(lambda: slots['​QType'])
+    city = try_ex(lambda: slots['City'])
+    session_attributes = intent_request['sessionAttributes'] if intent_request['sessionAttributes'] is not None else {
+    }
+
+    # Load confirmation history and track the current reservation.
+    reservation = json.dumps({
+        'QType': qtype,
+        '​CAddress': caddres,
+        'CName': cname,
+        '​CLast': clast,
+        'City': city
+    })
+
+    session_attributes['currentReservation'] = reservation
+    # Validate any slots which have been specified.  If any are invalid, re-elicit for their value
+    if intent_request['invocationSource'] == 'DialogCodeHook':
+        validation_result = validate_quote(intent_request['currentIntent']['slots'])
+        if not validation_result['isValid']:
+            slots = intent_request['currentIntent']['slots']
+            slots[validation_result['violatedSlot']] = None
+
+            return elicit_slot(
+                session_attributes,
+                intent_request['currentIntent']['name'],
+                slots,
+                validation_result['violatedSlot'],
+                validation_result['message']
+            )
+
+
 def greetings(intent_request):
     cname = try_ex(lambda: intent_request['currentIntent']['slots']['CName'].title())
     intent = intent_request['currentIntent']['name']
