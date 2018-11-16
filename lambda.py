@@ -10,6 +10,8 @@ logger.setLevel(logging.DEBUG)
 
 # -- Helpers For Response Builders --
 
+# -- ElicitSlot — Informs Amazon Lex that the user is expected to provide a slot value in the response.
+
 
 def elicit_slot(session_attributes, intent_name, slots, slot_to_elicit, message):
     return{
@@ -23,6 +25,8 @@ def elicit_slot(session_attributes, intent_name, slots, slot_to_elicit, message)
         }
     }
 
+# -- ConfirmIntent — Informs Amazon Lex that the user is expected to give a yes or no answer to confirm or deny the current intent.
+
 
 def confirm_intent(session_attributes, intent_name, slots, message):
     return {
@@ -34,6 +38,8 @@ def confirm_intent(session_attributes, intent_name, slots, message):
             'message': message
         }
     }
+
+# -- Close — Informs Amazon Lex not to expect a response from the user. For example, "Your pizza order has been placed" does not require a response.
 
 
 def close(session_attributes, fulfillment_state, message):
@@ -47,6 +53,8 @@ def close(session_attributes, fulfillment_state, message):
     }
 
     return response
+
+# -- Delegate — Directs Amazon Lex to choose the next course of action based on the bot configuration.
 
 
 def delegate(session_attrubutes, slots):
@@ -72,6 +80,9 @@ def safe_int(n):
 
 
 def isvalid_date(date):
+    """
+    Safely checking parsed date to be True.
+    """
     try:
         dateutil.parser.parse(date)
         return True
@@ -80,6 +91,9 @@ def isvalid_date(date):
 
 
 def build_validation_result(is_valid, violated_slot, message_content):
+    """
+    Making result for Validation
+    """
     return {
         'isValid': is_valid,
         'violatedSlot': violated_slot,
