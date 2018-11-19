@@ -105,6 +105,9 @@ def build_validation_result(is_valid, violated_slot, message_content):
 
 
 def isvalid_qtype(qtype):
+    """
+    Validation for user created Slot 'Quote Type' - qtype.
+    """
     qtype = ['liability insurance', 'collision coverage',
              'comprehensive coverage', 'personal injury protection',
              'underinsured motorist protection']
@@ -112,6 +115,9 @@ def isvalid_qtype(qtype):
 
 
 def isvalid_add(street, city):
+    """
+    Validation for user inputed address and street information.
+    """
     auth_id = "14324411-3afb-6b5f-8ba0-79b4c7a26694"
     auth_token = "rkJ6XCrMNo5JbuVAkmqp"
 
