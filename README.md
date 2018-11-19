@@ -9,7 +9,7 @@ web interface. It provides a chatbot UI component that can be integrated
 in any website. The interface allows a user to interact with a Lex bot directly
 from a browser using text or voice.
 
-[![Watch the video](http://i64.tinypic.com/v8j62u.jpg)](https://www.youtube.com/watch?v=d3LYlNqfuzI)
+[![Watch the video](https://media.amazonwebservices.com/blog/2017/AWS%20Lex%20Lambda%20Chatbot%20Challenge-03-Lex%20and%20Lambda.png)](https://www.youtube.com/watch?v=d3LYlNqfuzI)
 
 ## Features include:
 - Mobile ready responsive UI with full page or embeddable widget modes
