@@ -169,6 +169,9 @@ def build_validation_result(isvalid, violated_slot, message_content):
 
 
 def validate_values(qtype, caddress, cname, clast, city):
+    """
+    Function for intermediate validation building and processing.
+    """
     if qtype and not isvalid_qtype(qtype):
         return build_validation_result(False, 'QType', 'I did not recognize that, can you please provide me with a valid insurance type?')
 
@@ -180,6 +183,9 @@ def validate_values(qtype, caddress, cname, clast, city):
 
 
 def validate_quote(slots):
+    """
+    Function for intermediate validation for Slots and Lex Contents.
+    """
     caddres = intent_request['currentIntent']['slots']['CAddress']
     cname = intent_request['currentIntent']['slots']['CName']
     clast = intent_request['currentIntent']['slots']['​CLast']
