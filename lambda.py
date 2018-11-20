@@ -285,6 +285,7 @@ def greetings(intent_request):
     session_attributes['currentReservation'] = reservation
 
     logger.info("Hey Thisis is a test")
+    logger.info("This is the current Intent: " + slots)
     logger.info("Intent Name : ")
     logger.info(intent)
     logger.info("Name :  ")
@@ -306,6 +307,10 @@ def dispatch(intent_request):
     intent_name = intent_request['currentIntent']['name']
 
     # Dispatch to your bot's intent handlers
+
+    """
+    Invocation for Calling Greeting Intent.
+    """
     if intent_name == 'Greetings':
         return greetings(intent_request)
     elif intent_name == 'Info':
