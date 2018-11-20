@@ -158,6 +158,9 @@ def isvalid_add(street, city):
 
 
 def build_validation_result(isvalid, violated_slot, message_content):
+    """
+    Function for intermediate validation building and processing.
+    """
     return {
         'isValid': isvalid,
         'violatedSlot': violated_slot,
