@@ -237,6 +237,9 @@ def validate_quote(slots):
 
 
 def get_quote(intent_request):
+    """
+    Function for processing quote and retrieving the user information.
+    """
     caddres = try_ex(lambda: slots['​CAddress'])
     cname = try_ex(lambda: slots['CName'])
     clast = try_ex(lambda: slots['​CLast'])
@@ -272,6 +275,10 @@ def get_quote(intent_request):
 
 
 def greetings(intent_request):
+    """
+    Function for running the task list attested for the intent greetings.
+    """
+
     cname = try_ex(lambda: intent_request['currentIntent']['slots']['CName'].title())
     intent = intent_request['currentIntent']['name']
     slots = intent_request['currentIntent']['slots']
