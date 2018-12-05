@@ -330,7 +330,6 @@ def dispatch(intent_request):
     Route the incoming request based on intent.
     The JSON body of the request is provided in the event slot.
     """
-    # By default, treat the user request as coming from the America/New_York time zone.
     os.environ['TZ'] = 'America/New_York'
     time.tzset()
     logger.debug('event.bot.name={}'.format(event['bot']['name']))
