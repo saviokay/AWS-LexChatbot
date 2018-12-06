@@ -326,12 +326,7 @@ def dispatch(intent_request):
     raise Exception('Intent with name ' + intent_name + ' not supported')
 
     def lambda_handler(event, context):
-    """
-    Route the incoming request based on intent.
-    The JSON body of the request is provided in the event slot.
-    """
-    os.environ['TZ'] = 'America/New_York'
-    time.tzset()
+
     logger.debug('event.bot.name={}'.format(event['bot']['name']))
 
     return dispatch(event)
