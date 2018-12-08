@@ -215,6 +215,20 @@ def validate_quote(slots):
                 )
             )
 
+        if not caddress:
+            return elicit_slot(
+                output_session_attributes,
+                intent_request['currentIntent']['name'],
+                intent_request['currentIntent']['slots'],
+                'CAddress',
+                {'contentType': 'PlainText',
+                    'content': 'Please specify a proper address for quotation evaluation'},
+                build_response_card(
+                    'Specify Address', 'Please specify a proper address for quotation evaluation',
+                    build_options('CAddress', caddress, date, None)
+                )
+            )
+
     if qtype and not isvalid_quote_type(qtype):
         return build_validation_result(
             False,
