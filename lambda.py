@@ -76,6 +76,7 @@ def safe_int(n):
     """
     if n is not None:
         return int(n)
+    #console.log('Error')
     return n
 
 
