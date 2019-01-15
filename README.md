@@ -17,6 +17,5 @@ from a browser using text or voice.
 one mode to the other
 - Voice support provides automatic silence detection, transcriptions
 and ability to interrupt responses and replay recordings
-- Display of Lex response cards
 - Ability to programmatically configure and interact with the chatbot
 UI using Python.
