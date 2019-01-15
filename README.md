@@ -19,3 +19,4 @@ one mode to the other
 and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using Python.
+- Display of Lex response cards
